@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Contribution</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #contributor-student-id {
+            margin-top: 20px;
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 25px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Team Contribution</h1>
+
+        <button id="load-contributor">
+            Show Contributor
+        </button>
+
+        <p id="contributor-student-id">
+            Contributor Student ID:
+        </p>
+
+        <a href="index.html">Back to Task Manager</a>
+    </div>
+
+    <script>
+        const button = document.getElementById("load-contributor");
+        const contributorElement = document.getElementById("contributor-student-id");
+
+        button.addEventListener("click", async function () {
+            try {
+                const response = await fetch("contribution.json");
+
+                if (!response.ok) {
+                    throw new Error("Could not load contribution.json");
+                }
+
+                const data = await response.json();
+
+                contributorElement.textContent =
+                    "Contributor Student ID: " + data.contributorStudentId;
+
+            } catch (error) {
+                contributorElement.textContent =
+                    "Error loading contributor information.";
+                console.error(error);
+            }
+        });
+    </script>
+
+</body>
+</html>
